@@ -1,0 +1,22 @@
+﻿# ==============================
+# CODEOWNERS - E-Wallet Sentiment
+# ==============================
+
+# Default owner (DevOps)
+* @org/devops
+
+# Frontend
+/frontend/          @org/frontend-team
+
+# Backend
+/backend/           @org/backend-team
+
+# AI / Data Science
+/ai/                @org/ai-team
+
+# Database
+/database/          @org/backend-team @org/devops
+
+# Infrastructure & CI/CD
+/infra/             @org/devops
+/.github/workflows/ @org/devops

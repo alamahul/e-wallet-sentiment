@@ -1,0 +1,27 @@
+﻿name: AI Pipeline CI
+
+on:
+  pull_request:
+    paths:
+      - 'ai/**'
+    branches: [dev, main]
+  push:
+    paths:
+      - 'ai/**'
+    branches: [dev]
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ai
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - run: pip install -r requirements.txt
+      - run: python -m flake8 src/ --max-line-length=120
+      - run: python -m pytest tests/ -v --tb=short

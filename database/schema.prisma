@@ -1,0 +1,32 @@
+﻿generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  appName   String   @map("app_name")
+  userName  String   @map("user_name")
+  content   String
+  score     Int
+  sentiment String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("reviews")
+}
+
+model SentimentResult {
+  id         Int      @id @default(autoincrement())
+  reviewId   Int      @unique @map("review_id")
+  label      String
+  confidence Float
+  model      String   @default("default")
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@map("sentiment_results")
+}

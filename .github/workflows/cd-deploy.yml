@@ -1,0 +1,26 @@
+﻿name: CD Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - prod
+
+jobs:
+  deploy-staging:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Staging
+        run: echo "Deploying to staging..."
+
+  deploy-production:
+    if: github.ref == 'refs/heads/prod'
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Production
+        run: echo "Deploying to production..."

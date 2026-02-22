@@ -1,0 +1,17 @@
+{
+  "name": "e-wallet-sentiment-monorepo",
+  "private": true,
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev:fe": "pnpm --filter e-wallet-sentiment-frontend run dev",
+    "dev:be": "pnpm --filter e-wallet-sentiment-backend run dev",
+    "db:generate": "pnpm --filter e-wallet-sentiment-database generate",
+    "db:push": "pnpm --filter e-wallet-sentiment-database db:push",
+    "docker:up": "docker compose --env-file .env -f infra/docker/docker-compose.yml up -d",
+    "docker:build": "docker compose --env-file .env -f infra/docker/docker-compose.yml build --no-cache",
+    "docker:down":  "docker compose --env-file .env -f infra/docker/docker-compose.yml down"
+  }
+}

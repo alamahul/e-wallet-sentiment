@@ -1,4 +1,10 @@
-﻿packages:
-  - 'frontend'
-  - 'backend'
-  - 'database'
+packages:
+  - frontend
+  - backend
+  - database
+
+onlyBuiltDependencies:
+  - '@prisma/client'
+  - '@prisma/engines'
+  - esbuild
+  - prisma

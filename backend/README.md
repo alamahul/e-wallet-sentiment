@@ -79,6 +79,16 @@ pnpm prisma db seed
 
 ## Running
 
+### Generate Schema (Important)
+It is important to generate the database
+
+
+```bash
+# still in the backend folder
+pnpm db:generate
+
+```
+
 ### Development Mode
 
 Start the development server with hot reload using Nodemon:
@@ -197,6 +207,3 @@ pnpm store prune
 pnpm install
 ```
 
-## License
-
-This project is private and confidential.

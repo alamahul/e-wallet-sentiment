@@ -6,7 +6,8 @@
   "scripts": {
     "generate": "prisma generate --schema=./schema.prisma",
     "db:push": "prisma db push --schema=./schema.prisma",
-    "db:migrate": "prisma migrate deploy --schema=./schema.prisma"
+    "db:migrate": "prisma migrate deploy --schema=./schema.prisma",
+    "db:migrate:dev": "prisma migrate deploy --schema=./schema.prisma"
   },
   "devDependencies": {
     "prisma": "^7.4.1"

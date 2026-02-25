@@ -9,7 +9,7 @@
 /frontend/          @org/frontend-team
 
 # Backend
-/backend/           @org/backend-team
+/backend/           @org/backend-team @ahmaadn
 
 # AI / Data Science
 /ai/                @org/ai-team

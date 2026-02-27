@@ -7,8 +7,8 @@ module.exports = defineConfig({
     url: env("DATABASE_URL"),
   },
   migrations: {
-    path: "/migrations",
-    seed: '/seeds'
+    path: "./migrations",
+    seed: "node ./seeds/index.js"
   },
   views: {
     path: '/views'

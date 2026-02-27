@@ -121,12 +121,39 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 });
 
 exports.Prisma.ReviewScalarFieldEnum = {
-  id: 'id'
+  review_id: 'review_id',
+  user_name: 'user_name',
+  user_image: 'user_image',
+  content: 'content',
+  score: 'score',
+  thumbs_up_count: 'thumbs_up_count',
+  review_created_version: 'review_created_version',
+  review_datetime: 'review_datetime',
+  reply_content: 'reply_content',
+  replied_at: 'replied_at',
+  app_version: 'app_version',
+  timestamp_unix: 'timestamp_unix',
+  timestamp_formatted: 'timestamp_formatted',
+  source: 'source',
+  is_analyzed: 'is_analyzed',
+  sentiment_result: 'sentiment_result',
+  confidence_score: 'confidence_score',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 

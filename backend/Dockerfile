@@ -17,15 +17,15 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 COPY backend ./backend
 COPY database ./database
 
-# 3. Install dependensi — pnpm install di root agar virtual store tersedia
+# 3. Install dependensi
 RUN pnpm install --frozen-lockfile
 
-# 4. Generate Prisma Client
-RUN pnpm run --filter=e-wallet-sentiment-database generate
+# 4. Generate Prisma Client (dummy DATABASE_URL karena generate tidak connect ke DB)
+RUN DATABASE_URL="postgresql://dummy:dummy@localhost:5432/dummy" pnpm run --filter=e-wallet-sentiment-database generate
 
 # 5. Pindah ke direktori backend
 WORKDIR /app/backend
 
 EXPOSE 3001
 
-CMD ["node", "src/server.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy --schema=../database/prisma/schema.prisma && node src/server.js"]

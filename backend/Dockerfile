@@ -28,4 +28,6 @@ WORKDIR /app/backend
 
 EXPOSE 3001
 
-CMD ["sh", "-c", "npx prisma migrate deploy --schema=../database/prisma/schema.prisma && node src/server.js"]
+CMD ["sh", "-c", "cd /app/database && npx prisma migrate deploy && cd /app/backend && node src/server.js"]
+
+

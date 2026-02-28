@@ -67,7 +67,7 @@ PORT=3001
 NODE_ENV=development
 
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/e_wallet_sentiment
+DATABASE_URL=postgresql://user:password@localhost:5433/e_wallet_sentiment
 ```
 
 3. **Setup database**

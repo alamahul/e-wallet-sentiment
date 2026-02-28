@@ -875,45 +875,159 @@ export namespace Prisma {
   }
 
   export type ReviewAvgAggregateOutputType = {
-    id: number | null
+    score: number | null
+    thumbs_up_count: number | null
+    timestamp_unix: number | null
+    confidence_score: number | null
   }
 
   export type ReviewSumAggregateOutputType = {
-    id: number | null
+    score: number | null
+    thumbs_up_count: number | null
+    timestamp_unix: bigint | null
+    confidence_score: number | null
   }
 
   export type ReviewMinAggregateOutputType = {
-    id: number | null
+    review_id: string | null
+    user_name: string | null
+    user_image: string | null
+    content: string | null
+    score: number | null
+    thumbs_up_count: number | null
+    review_created_version: string | null
+    review_datetime: Date | null
+    reply_content: string | null
+    replied_at: Date | null
+    app_version: string | null
+    timestamp_unix: bigint | null
+    timestamp_formatted: string | null
+    source: string | null
+    is_analyzed: boolean | null
+    sentiment_result: string | null
+    confidence_score: number | null
+    created_at: Date | null
   }
 
   export type ReviewMaxAggregateOutputType = {
-    id: number | null
+    review_id: string | null
+    user_name: string | null
+    user_image: string | null
+    content: string | null
+    score: number | null
+    thumbs_up_count: number | null
+    review_created_version: string | null
+    review_datetime: Date | null
+    reply_content: string | null
+    replied_at: Date | null
+    app_version: string | null
+    timestamp_unix: bigint | null
+    timestamp_formatted: string | null
+    source: string | null
+    is_analyzed: boolean | null
+    sentiment_result: string | null
+    confidence_score: number | null
+    created_at: Date | null
   }
 
   export type ReviewCountAggregateOutputType = {
-    id: number
+    review_id: number
+    user_name: number
+    user_image: number
+    content: number
+    score: number
+    thumbs_up_count: number
+    review_created_version: number
+    review_datetime: number
+    reply_content: number
+    replied_at: number
+    app_version: number
+    timestamp_unix: number
+    timestamp_formatted: number
+    source: number
+    is_analyzed: number
+    sentiment_result: number
+    confidence_score: number
+    created_at: number
     _all: number
   }
 
 
   export type ReviewAvgAggregateInputType = {
-    id?: true
+    score?: true
+    thumbs_up_count?: true
+    timestamp_unix?: true
+    confidence_score?: true
   }
 
   export type ReviewSumAggregateInputType = {
-    id?: true
+    score?: true
+    thumbs_up_count?: true
+    timestamp_unix?: true
+    confidence_score?: true
   }
 
   export type ReviewMinAggregateInputType = {
-    id?: true
+    review_id?: true
+    user_name?: true
+    user_image?: true
+    content?: true
+    score?: true
+    thumbs_up_count?: true
+    review_created_version?: true
+    review_datetime?: true
+    reply_content?: true
+    replied_at?: true
+    app_version?: true
+    timestamp_unix?: true
+    timestamp_formatted?: true
+    source?: true
+    is_analyzed?: true
+    sentiment_result?: true
+    confidence_score?: true
+    created_at?: true
   }
 
   export type ReviewMaxAggregateInputType = {
-    id?: true
+    review_id?: true
+    user_name?: true
+    user_image?: true
+    content?: true
+    score?: true
+    thumbs_up_count?: true
+    review_created_version?: true
+    review_datetime?: true
+    reply_content?: true
+    replied_at?: true
+    app_version?: true
+    timestamp_unix?: true
+    timestamp_formatted?: true
+    source?: true
+    is_analyzed?: true
+    sentiment_result?: true
+    confidence_score?: true
+    created_at?: true
   }
 
   export type ReviewCountAggregateInputType = {
-    id?: true
+    review_id?: true
+    user_name?: true
+    user_image?: true
+    content?: true
+    score?: true
+    thumbs_up_count?: true
+    review_created_version?: true
+    review_datetime?: true
+    reply_content?: true
+    replied_at?: true
+    app_version?: true
+    timestamp_unix?: true
+    timestamp_formatted?: true
+    source?: true
+    is_analyzed?: true
+    sentiment_result?: true
+    confidence_score?: true
+    created_at?: true
     _all?: true
   }
 
@@ -1004,7 +1118,24 @@ export namespace Prisma {
   }
 
   export type ReviewGroupByOutputType = {
-    id: number
+    review_id: string
+    user_name: string | null
+    user_image: string | null
+    content: string
+    score: number | null
+    thumbs_up_count: number | null
+    review_created_version: string | null
+    review_datetime: Date | null
+    reply_content: string | null
+    replied_at: Date | null
+    app_version: string | null
+    timestamp_unix: bigint | null
+    timestamp_formatted: string | null
+    source: string
+    is_analyzed: boolean | null
+    sentiment_result: string | null
+    confidence_score: number | null
+    created_at: Date | null
     _count: ReviewCountAggregateOutputType | null
     _avg: ReviewAvgAggregateOutputType | null
     _sum: ReviewSumAggregateOutputType | null
@@ -1027,28 +1158,113 @@ export namespace Prisma {
 
 
   export type ReviewSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
+    review_id?: boolean
+    user_name?: boolean
+    user_image?: boolean
+    content?: boolean
+    score?: boolean
+    thumbs_up_count?: boolean
+    review_created_version?: boolean
+    review_datetime?: boolean
+    reply_content?: boolean
+    replied_at?: boolean
+    app_version?: boolean
+    timestamp_unix?: boolean
+    timestamp_formatted?: boolean
+    source?: boolean
+    is_analyzed?: boolean
+    sentiment_result?: boolean
+    confidence_score?: boolean
+    created_at?: boolean
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
+    review_id?: boolean
+    user_name?: boolean
+    user_image?: boolean
+    content?: boolean
+    score?: boolean
+    thumbs_up_count?: boolean
+    review_created_version?: boolean
+    review_datetime?: boolean
+    reply_content?: boolean
+    replied_at?: boolean
+    app_version?: boolean
+    timestamp_unix?: boolean
+    timestamp_formatted?: boolean
+    source?: boolean
+    is_analyzed?: boolean
+    sentiment_result?: boolean
+    confidence_score?: boolean
+    created_at?: boolean
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
+    review_id?: boolean
+    user_name?: boolean
+    user_image?: boolean
+    content?: boolean
+    score?: boolean
+    thumbs_up_count?: boolean
+    review_created_version?: boolean
+    review_datetime?: boolean
+    reply_content?: boolean
+    replied_at?: boolean
+    app_version?: boolean
+    timestamp_unix?: boolean
+    timestamp_formatted?: boolean
+    source?: boolean
+    is_analyzed?: boolean
+    sentiment_result?: boolean
+    confidence_score?: boolean
+    created_at?: boolean
   }, ExtArgs["result"]["review"]>
 
   export type ReviewSelectScalar = {
-    id?: boolean
+    review_id?: boolean
+    user_name?: boolean
+    user_image?: boolean
+    content?: boolean
+    score?: boolean
+    thumbs_up_count?: boolean
+    review_created_version?: boolean
+    review_datetime?: boolean
+    reply_content?: boolean
+    replied_at?: boolean
+    app_version?: boolean
+    timestamp_unix?: boolean
+    timestamp_formatted?: boolean
+    source?: boolean
+    is_analyzed?: boolean
+    sentiment_result?: boolean
+    confidence_score?: boolean
+    created_at?: boolean
   }
 
-  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id", ExtArgs["result"]["review"]>
+  export type ReviewOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"review_id" | "user_name" | "user_image" | "content" | "score" | "thumbs_up_count" | "review_created_version" | "review_datetime" | "reply_content" | "replied_at" | "app_version" | "timestamp_unix" | "timestamp_formatted" | "source" | "is_analyzed" | "sentiment_result" | "confidence_score" | "created_at", ExtArgs["result"]["review"]>
 
   export type $ReviewPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Review"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
-      id: number
+      review_id: string
+      user_name: string | null
+      user_image: string | null
+      content: string
+      score: number | null
+      thumbs_up_count: number | null
+      review_created_version: string | null
+      review_datetime: Date | null
+      reply_content: string | null
+      replied_at: Date | null
+      app_version: string | null
+      timestamp_unix: bigint | null
+      timestamp_formatted: string | null
+      source: string
+      is_analyzed: boolean | null
+      sentiment_result: string | null
+      confidence_score: number | null
+      created_at: Date | null
     }, ExtArgs["result"]["review"]>
     composites: {}
   }
@@ -1132,8 +1348,8 @@ export namespace Prisma {
      * // Get first 10 Reviews
      * const reviews = await prisma.review.findMany({ take: 10 })
      * 
-     * // Only select the `id`
-     * const reviewWithIdOnly = await prisma.review.findMany({ select: { id: true } })
+     * // Only select the `review_id`
+     * const reviewWithReview_idOnly = await prisma.review.findMany({ select: { review_id: true } })
      * 
      */
     findMany<T extends ReviewFindManyArgs>(args?: SelectSubset<T, ReviewFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1177,9 +1393,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Create many Reviews and only return the `id`
-     * const reviewWithIdOnly = await prisma.review.createManyAndReturn({
-     *   select: { id: true },
+     * // Create many Reviews and only return the `review_id`
+     * const reviewWithReview_idOnly = await prisma.review.createManyAndReturn({
+     *   select: { review_id: true },
      *   data: [
      *     // ... provide data here
      *   ]
@@ -1268,9 +1484,9 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more Reviews and only return the `id`
-     * const reviewWithIdOnly = await prisma.review.updateManyAndReturn({
-     *   select: { id: true },
+     * // Update zero or more Reviews and only return the `review_id`
+     * const reviewWithReview_idOnly = await prisma.review.updateManyAndReturn({
+     *   select: { review_id: true },
      *   where: {
      *     // ... provide filter here
      *   },
@@ -1472,7 +1688,24 @@ export namespace Prisma {
    * Fields of the Review model
    */
   interface ReviewFieldRefs {
-    readonly id: FieldRef<"Review", 'Int'>
+    readonly review_id: FieldRef<"Review", 'String'>
+    readonly user_name: FieldRef<"Review", 'String'>
+    readonly user_image: FieldRef<"Review", 'String'>
+    readonly content: FieldRef<"Review", 'String'>
+    readonly score: FieldRef<"Review", 'Int'>
+    readonly thumbs_up_count: FieldRef<"Review", 'Int'>
+    readonly review_created_version: FieldRef<"Review", 'String'>
+    readonly review_datetime: FieldRef<"Review", 'DateTime'>
+    readonly reply_content: FieldRef<"Review", 'String'>
+    readonly replied_at: FieldRef<"Review", 'DateTime'>
+    readonly app_version: FieldRef<"Review", 'String'>
+    readonly timestamp_unix: FieldRef<"Review", 'BigInt'>
+    readonly timestamp_formatted: FieldRef<"Review", 'String'>
+    readonly source: FieldRef<"Review", 'String'>
+    readonly is_analyzed: FieldRef<"Review", 'Boolean'>
+    readonly sentiment_result: FieldRef<"Review", 'String'>
+    readonly confidence_score: FieldRef<"Review", 'Float'>
+    readonly created_at: FieldRef<"Review", 'DateTime'>
   }
     
 
@@ -1667,7 +1900,7 @@ export namespace Prisma {
     /**
      * The data needed to create a Review.
      */
-    data?: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
+    data: XOR<ReviewCreateInput, ReviewUncheckedCreateInput>
   }
 
   /**
@@ -1854,7 +2087,24 @@ export namespace Prisma {
 
 
   export const ReviewScalarFieldEnum: {
-    id: 'id'
+    review_id: 'review_id',
+    user_name: 'user_name',
+    user_image: 'user_image',
+    content: 'content',
+    score: 'score',
+    thumbs_up_count: 'thumbs_up_count',
+    review_created_version: 'review_created_version',
+    review_datetime: 'review_datetime',
+    reply_content: 'reply_content',
+    replied_at: 'replied_at',
+    app_version: 'app_version',
+    timestamp_unix: 'timestamp_unix',
+    timestamp_formatted: 'timestamp_formatted',
+    source: 'source',
+    is_analyzed: 'is_analyzed',
+    sentiment_result: 'sentiment_result',
+    confidence_score: 'confidence_score',
+    created_at: 'created_at'
   };
 
   export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
@@ -1868,9 +2118,39 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
   /**
    * Field references
    */
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
 
 
   /**
@@ -1884,6 +2164,41 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
@@ -1908,22 +2223,90 @@ export namespace Prisma {
     AND?: ReviewWhereInput | ReviewWhereInput[]
     OR?: ReviewWhereInput[]
     NOT?: ReviewWhereInput | ReviewWhereInput[]
-    id?: IntFilter<"Review"> | number
+    review_id?: StringFilter<"Review"> | string
+    user_name?: StringNullableFilter<"Review"> | string | null
+    user_image?: StringNullableFilter<"Review"> | string | null
+    content?: StringFilter<"Review"> | string
+    score?: IntNullableFilter<"Review"> | number | null
+    thumbs_up_count?: IntNullableFilter<"Review"> | number | null
+    review_created_version?: StringNullableFilter<"Review"> | string | null
+    review_datetime?: DateTimeNullableFilter<"Review"> | Date | string | null
+    reply_content?: StringNullableFilter<"Review"> | string | null
+    replied_at?: DateTimeNullableFilter<"Review"> | Date | string | null
+    app_version?: StringNullableFilter<"Review"> | string | null
+    timestamp_unix?: BigIntNullableFilter<"Review"> | bigint | number | null
+    timestamp_formatted?: StringNullableFilter<"Review"> | string | null
+    source?: StringFilter<"Review"> | string
+    is_analyzed?: BoolNullableFilter<"Review"> | boolean | null
+    sentiment_result?: StringNullableFilter<"Review"> | string | null
+    confidence_score?: FloatNullableFilter<"Review"> | number | null
+    created_at?: DateTimeNullableFilter<"Review"> | Date | string | null
   }
 
   export type ReviewOrderByWithRelationInput = {
-    id?: SortOrder
+    review_id?: SortOrder
+    user_name?: SortOrderInput | SortOrder
+    user_image?: SortOrderInput | SortOrder
+    content?: SortOrder
+    score?: SortOrderInput | SortOrder
+    thumbs_up_count?: SortOrderInput | SortOrder
+    review_created_version?: SortOrderInput | SortOrder
+    review_datetime?: SortOrderInput | SortOrder
+    reply_content?: SortOrderInput | SortOrder
+    replied_at?: SortOrderInput | SortOrder
+    app_version?: SortOrderInput | SortOrder
+    timestamp_unix?: SortOrderInput | SortOrder
+    timestamp_formatted?: SortOrderInput | SortOrder
+    source?: SortOrder
+    is_analyzed?: SortOrderInput | SortOrder
+    sentiment_result?: SortOrderInput | SortOrder
+    confidence_score?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
   }
 
   export type ReviewWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
+    review_id?: string
     AND?: ReviewWhereInput | ReviewWhereInput[]
     OR?: ReviewWhereInput[]
     NOT?: ReviewWhereInput | ReviewWhereInput[]
-  }, "id">
+    user_name?: StringNullableFilter<"Review"> | string | null
+    user_image?: StringNullableFilter<"Review"> | string | null
+    content?: StringFilter<"Review"> | string
+    score?: IntNullableFilter<"Review"> | number | null
+    thumbs_up_count?: IntNullableFilter<"Review"> | number | null
+    review_created_version?: StringNullableFilter<"Review"> | string | null
+    review_datetime?: DateTimeNullableFilter<"Review"> | Date | string | null
+    reply_content?: StringNullableFilter<"Review"> | string | null
+    replied_at?: DateTimeNullableFilter<"Review"> | Date | string | null
+    app_version?: StringNullableFilter<"Review"> | string | null
+    timestamp_unix?: BigIntNullableFilter<"Review"> | bigint | number | null
+    timestamp_formatted?: StringNullableFilter<"Review"> | string | null
+    source?: StringFilter<"Review"> | string
+    is_analyzed?: BoolNullableFilter<"Review"> | boolean | null
+    sentiment_result?: StringNullableFilter<"Review"> | string | null
+    confidence_score?: FloatNullableFilter<"Review"> | number | null
+    created_at?: DateTimeNullableFilter<"Review"> | Date | string | null
+  }, "review_id">
 
   export type ReviewOrderByWithAggregationInput = {
-    id?: SortOrder
+    review_id?: SortOrder
+    user_name?: SortOrderInput | SortOrder
+    user_image?: SortOrderInput | SortOrder
+    content?: SortOrder
+    score?: SortOrderInput | SortOrder
+    thumbs_up_count?: SortOrderInput | SortOrder
+    review_created_version?: SortOrderInput | SortOrder
+    review_datetime?: SortOrderInput | SortOrder
+    reply_content?: SortOrderInput | SortOrder
+    replied_at?: SortOrderInput | SortOrder
+    app_version?: SortOrderInput | SortOrder
+    timestamp_unix?: SortOrderInput | SortOrder
+    timestamp_formatted?: SortOrderInput | SortOrder
+    source?: SortOrder
+    is_analyzed?: SortOrderInput | SortOrder
+    sentiment_result?: SortOrderInput | SortOrder
+    confidence_score?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
     _count?: ReviewCountOrderByAggregateInput
     _avg?: ReviewAvgOrderByAggregateInput
     _max?: ReviewMaxOrderByAggregateInput
@@ -1935,90 +2318,572 @@ export namespace Prisma {
     AND?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
     OR?: ReviewScalarWhereWithAggregatesInput[]
     NOT?: ReviewScalarWhereWithAggregatesInput | ReviewScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"Review"> | number
+    review_id?: StringWithAggregatesFilter<"Review"> | string
+    user_name?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    user_image?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    content?: StringWithAggregatesFilter<"Review"> | string
+    score?: IntNullableWithAggregatesFilter<"Review"> | number | null
+    thumbs_up_count?: IntNullableWithAggregatesFilter<"Review"> | number | null
+    review_created_version?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    review_datetime?: DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
+    reply_content?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    replied_at?: DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
+    app_version?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    timestamp_unix?: BigIntNullableWithAggregatesFilter<"Review"> | bigint | number | null
+    timestamp_formatted?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    source?: StringWithAggregatesFilter<"Review"> | string
+    is_analyzed?: BoolNullableWithAggregatesFilter<"Review"> | boolean | null
+    sentiment_result?: StringNullableWithAggregatesFilter<"Review"> | string | null
+    confidence_score?: FloatNullableWithAggregatesFilter<"Review"> | number | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
   }
 
   export type ReviewCreateInput = {
-
+    review_id: string
+    user_name?: string | null
+    user_image?: string | null
+    content: string
+    score?: number | null
+    thumbs_up_count?: number | null
+    review_created_version?: string | null
+    review_datetime?: Date | string | null
+    reply_content?: string | null
+    replied_at?: Date | string | null
+    app_version?: string | null
+    timestamp_unix?: bigint | number | null
+    timestamp_formatted?: string | null
+    source: string
+    is_analyzed?: boolean | null
+    sentiment_result?: string | null
+    confidence_score?: number | null
+    created_at?: Date | string | null
   }
 
   export type ReviewUncheckedCreateInput = {
-    id?: number
+    review_id: string
+    user_name?: string | null
+    user_image?: string | null
+    content: string
+    score?: number | null
+    thumbs_up_count?: number | null
+    review_created_version?: string | null
+    review_datetime?: Date | string | null
+    reply_content?: string | null
+    replied_at?: Date | string | null
+    app_version?: string | null
+    timestamp_unix?: bigint | number | null
+    timestamp_formatted?: string | null
+    source: string
+    is_analyzed?: boolean | null
+    sentiment_result?: string | null
+    confidence_score?: number | null
+    created_at?: Date | string | null
   }
 
   export type ReviewUpdateInput = {
-
+    review_id?: StringFieldUpdateOperationsInput | string
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_image?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    score?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbs_up_count?: NullableIntFieldUpdateOperationsInput | number | null
+    review_created_version?: NullableStringFieldUpdateOperationsInput | string | null
+    review_datetime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reply_content?: NullableStringFieldUpdateOperationsInput | string | null
+    replied_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    app_version?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp_unix?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    timestamp_formatted?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    is_analyzed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sentiment_result?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReviewUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    review_id?: StringFieldUpdateOperationsInput | string
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_image?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    score?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbs_up_count?: NullableIntFieldUpdateOperationsInput | number | null
+    review_created_version?: NullableStringFieldUpdateOperationsInput | string | null
+    review_datetime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reply_content?: NullableStringFieldUpdateOperationsInput | string | null
+    replied_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    app_version?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp_unix?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    timestamp_formatted?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    is_analyzed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sentiment_result?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReviewCreateManyInput = {
-    id?: number
+    review_id: string
+    user_name?: string | null
+    user_image?: string | null
+    content: string
+    score?: number | null
+    thumbs_up_count?: number | null
+    review_created_version?: string | null
+    review_datetime?: Date | string | null
+    reply_content?: string | null
+    replied_at?: Date | string | null
+    app_version?: string | null
+    timestamp_unix?: bigint | number | null
+    timestamp_formatted?: string | null
+    source: string
+    is_analyzed?: boolean | null
+    sentiment_result?: string | null
+    confidence_score?: number | null
+    created_at?: Date | string | null
   }
 
   export type ReviewUpdateManyMutationInput = {
-
+    review_id?: StringFieldUpdateOperationsInput | string
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_image?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    score?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbs_up_count?: NullableIntFieldUpdateOperationsInput | number | null
+    review_created_version?: NullableStringFieldUpdateOperationsInput | string | null
+    review_datetime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reply_content?: NullableStringFieldUpdateOperationsInput | string | null
+    replied_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    app_version?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp_unix?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    timestamp_formatted?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    is_analyzed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sentiment_result?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ReviewUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
+    review_id?: StringFieldUpdateOperationsInput | string
+    user_name?: NullableStringFieldUpdateOperationsInput | string | null
+    user_image?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: StringFieldUpdateOperationsInput | string
+    score?: NullableIntFieldUpdateOperationsInput | number | null
+    thumbs_up_count?: NullableIntFieldUpdateOperationsInput | number | null
+    review_created_version?: NullableStringFieldUpdateOperationsInput | string | null
+    review_datetime?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    reply_content?: NullableStringFieldUpdateOperationsInput | string | null
+    replied_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    app_version?: NullableStringFieldUpdateOperationsInput | string | null
+    timestamp_unix?: NullableBigIntFieldUpdateOperationsInput | bigint | number | null
+    timestamp_formatted?: NullableStringFieldUpdateOperationsInput | string | null
+    source?: StringFieldUpdateOperationsInput | string
+    is_analyzed?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    sentiment_result?: NullableStringFieldUpdateOperationsInput | string | null
+    confidence_score?: NullableFloatFieldUpdateOperationsInput | number | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type IntFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntFilter<$PrismaModel> | number
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type BigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type BoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type ReviewCountOrderByAggregateInput = {
-    id?: SortOrder
+    review_id?: SortOrder
+    user_name?: SortOrder
+    user_image?: SortOrder
+    content?: SortOrder
+    score?: SortOrder
+    thumbs_up_count?: SortOrder
+    review_created_version?: SortOrder
+    review_datetime?: SortOrder
+    reply_content?: SortOrder
+    replied_at?: SortOrder
+    app_version?: SortOrder
+    timestamp_unix?: SortOrder
+    timestamp_formatted?: SortOrder
+    source?: SortOrder
+    is_analyzed?: SortOrder
+    sentiment_result?: SortOrder
+    confidence_score?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ReviewAvgOrderByAggregateInput = {
-    id?: SortOrder
+    score?: SortOrder
+    thumbs_up_count?: SortOrder
+    timestamp_unix?: SortOrder
+    confidence_score?: SortOrder
   }
 
   export type ReviewMaxOrderByAggregateInput = {
-    id?: SortOrder
+    review_id?: SortOrder
+    user_name?: SortOrder
+    user_image?: SortOrder
+    content?: SortOrder
+    score?: SortOrder
+    thumbs_up_count?: SortOrder
+    review_created_version?: SortOrder
+    review_datetime?: SortOrder
+    reply_content?: SortOrder
+    replied_at?: SortOrder
+    app_version?: SortOrder
+    timestamp_unix?: SortOrder
+    timestamp_formatted?: SortOrder
+    source?: SortOrder
+    is_analyzed?: SortOrder
+    sentiment_result?: SortOrder
+    confidence_score?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ReviewMinOrderByAggregateInput = {
-    id?: SortOrder
+    review_id?: SortOrder
+    user_name?: SortOrder
+    user_image?: SortOrder
+    content?: SortOrder
+    score?: SortOrder
+    thumbs_up_count?: SortOrder
+    review_created_version?: SortOrder
+    review_datetime?: SortOrder
+    reply_content?: SortOrder
+    replied_at?: SortOrder
+    app_version?: SortOrder
+    timestamp_unix?: SortOrder
+    timestamp_formatted?: SortOrder
+    source?: SortOrder
+    is_analyzed?: SortOrder
+    sentiment_result?: SortOrder
+    confidence_score?: SortOrder
+    created_at?: SortOrder
   }
 
   export type ReviewSumOrderByAggregateInput = {
-    id?: SortOrder
+    score?: SortOrder
+    thumbs_up_count?: SortOrder
+    timestamp_unix?: SortOrder
+    confidence_score?: SortOrder
   }
 
-  export type IntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type IntFieldUpdateOperationsInput = {
-    set?: number
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type BigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
     increment?: number
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
+  export type NullableBigIntFieldUpdateOperationsInput = {
+    set?: bigint | number | null
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
+  }
+
+  export type NullableBoolFieldUpdateOperationsInput = {
+    set?: boolean | null
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedBigIntNullableFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableFilter<$PrismaModel> | bigint | number | null
+  }
+
+  export type NestedBoolNullableFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -2032,31 +2897,91 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: number | IntFieldRefInput<$PrismaModel>
-    in?: number[] | ListIntFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
     lt?: number | IntFieldRefInput<$PrismaModel>
     lte?: number | IntFieldRefInput<$PrismaModel>
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
-    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
-    _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedIntFilter<$PrismaModel>
-    _min?: NestedIntFilter<$PrismaModel>
-    _max?: NestedIntFilter<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type NestedFloatFilter<$PrismaModel = never> = {
-    equals?: number | FloatFieldRefInput<$PrismaModel>
-    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
-    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel> | null
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel> | null
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntNullableWithAggregatesFilter<$PrismaModel> | bigint | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedBigIntNullableFilter<$PrismaModel>
+    _min?: NestedBigIntNullableFilter<$PrismaModel>
+    _max?: NestedBigIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
+    not?: NestedBoolNullableWithAggregatesFilter<$PrismaModel> | boolean | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedBoolNullableFilter<$PrismaModel>
+    _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
     lt?: number | FloatFieldRefInput<$PrismaModel>
     lte?: number | FloatFieldRefInput<$PrismaModel>
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
-    not?: NestedFloatFilter<$PrismaModel> | number
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
 

@@ -1,4 +1,7 @@
 ﻿services:
+  # ============================================================
+  # DATABASE
+  # ============================================================
   db:
     image: postgres:16-alpine
     container_name: ewallet_db
@@ -11,7 +14,38 @@
       - pgdata:/var/lib/postgresql/data
     networks:
       - ewallet_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
+  # ============================================================
+  # ELASTICSEARCH (untuk AI: storage, embedding, RAG)
+  # ============================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: ewallet_elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "${ES_PORT:-9200}:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - ewallet_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ============================================================
+  # BACKEND
+  # ============================================================
   backend:
     container_name: ewallet_backend
     build:
@@ -25,10 +59,14 @@
     ports:
       - "${BACKEND_PORT}:${BACKEND_PORT}"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - ewallet_net
 
+  # ============================================================
+  # FRONTEND
+  # ============================================================
   frontend:
     container_name: ewallet_frontend
     build:
@@ -42,8 +80,33 @@
     networks:
       - ewallet_net
 
+  # ============================================================
+  # AI API (Sentiment Analysis)
+  # ============================================================
+  ai:
+    container_name: ewallet_ai
+    build:
+      context: ../../
+      dockerfile: ai/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    environment:
+      ES_HOST: http://elasticsearch:9200
+      API_PORT: ${AI_PORT:-8000}
+    ports:
+      - "${AI_PORT:-8000}:8000"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ../../ai/models:/app/models
+    networks:
+      - ewallet_net
+
 volumes:
   pgdata:
+  esdata:
 
 networks:
   ewallet_net:

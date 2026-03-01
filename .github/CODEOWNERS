@@ -12,7 +12,7 @@
 /backend/           @org/backend-team @ahmaadn
 
 # AI / Data Science
-/ai/                @org/ai-team
+/ai/                @org/ai-team @zaenalSamsul
 
 # Database
 /database/          @org/backend-team @org/devops

@@ -1,4 +1,4 @@
-require("dotenv/config");
+require("dotenv").config({ path: "../.env" });
 const { defineConfig, env } = require("prisma/config");
 
 module.exports = defineConfig({
@@ -8,9 +8,9 @@ module.exports = defineConfig({
   },
   migrations: {
     path: "./migrations",
-    seed: "node ./seeds/index.js"
+    seed: "node ./seeds/index.js",
   },
   views: {
-    path: '/views'
-  }
+    path: "/views",
+  },
 });

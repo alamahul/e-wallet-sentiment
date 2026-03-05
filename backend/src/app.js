@@ -1,8 +1,8 @@
 const express = require('express');
 const loggerMiddleware = require('./middlewares/logging.middleware');
 const errorHandleMiddleware = require('./middlewares/error-logger.middleware');
-const app = express();
 const reviewRouter = require('./modules/reviews/review.router');
+const app = express();
 
 const createApp = () => {
   // MIDDLEWARE
@@ -20,7 +20,7 @@ const createApp = () => {
     res.json({ status: 'ok', service: 'e-wallet-sentiment-backend' });
   });
 
-  // Reviews endpoint
+  // Review routes
   app.use('/api/reviews', reviewRouter);
 
   // Handle Error API

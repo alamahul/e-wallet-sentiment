@@ -1,6 +1,18 @@
 /* eslint-disable no-magic-numbers */
 const { z } = require('zod');
 
+const getReviewsQuerySchema = z.object({
+  page: z.coerce.number().int().min(1).default(1),
+  limit: z.coerce.number().int().min(1).max(100).default(10),
+  source: z.string().trim().min(1).optional(),
+  sentiment_result: z.string().trim().min(1).optional(),
+  is_analyzed: z
+    .enum(['true', 'false'])
+    .transform(value => value === 'true')
+    .optional(),
+  sort_order: z.enum(['asc', 'desc']).default('desc')
+});
+
 const createReviewSchema = z.object({
   review_id: z.string().max(255),
   user_name: z.string().max(255).nullable().optional(),
@@ -31,5 +43,6 @@ const createReviewSchema = z.object({
 });
 
 module.exports = {
+  getReviewsQuerySchema,
   createReviewSchema
 };

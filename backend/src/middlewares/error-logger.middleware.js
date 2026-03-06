@@ -13,9 +13,10 @@ const errorHandleMiddleware = (err, req, res, _next) => {
 
   // error
   const DEFAULT_CODE_ERROR = 500;
-  res.status(err.status || DEFAULT_CODE_ERROR).json({
+  res.status(err.statusCode || err.status || DEFAULT_CODE_ERROR).json({
     success: false,
     message: err.message || 'Internal Server Error',
+    ...(err.errors && { errors: err.errors }),
     ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
   });
 };

@@ -33,6 +33,15 @@ const USERS = [
     avatarUrl: null,
     lastLoginAt: null,
   },
+  {
+    id: "00000000-0000-0000-0000-000000000004",
+    email: "testuser@example.com",
+    username: "testuser",
+    passwordHash: BCRYPT_HASH,
+    role: "EDITOR",
+    avatarUrl: null,
+    lastLoginAt: null,
+  },
 ];
 
 async function seedUsers(prisma) {

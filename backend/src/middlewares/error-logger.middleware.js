@@ -1,8 +1,5 @@
 const logger = require('../config/logger.config');
-
-
-const HTTP_INTERNAL_SERVER_ERROR = 500;
-const HTTP_BAD_REQUEST = 400;
+const STATUS_CODES = require('../utils/status-code');
 
 /**
  * Global Handle error
@@ -13,13 +10,13 @@ const HTTP_BAD_REQUEST = 400;
  * @param {import('express').NextFunction} _next
  */
 const errorHandleMiddleware = (err, req, res, _next) => {
-  const statusCode = err.statusCode || err.status || HTTP_INTERNAL_SERVER_ERROR;
+  const statusCode =
+    err.statusCode || err.status || STATUS_CODES.INTERNAL_SERVER_ERROR;
 
-  if (statusCode >= HTTP_BAD_REQUEST && statusCode < HTTP_INTERNAL_SERVER_ERROR) {
-    // Error klien (4xx): Log sebagai warn tanpa stack trace supaya terminal tidak "berisik"
-    logger.warn(`${req.method} ${req.originalUrl} - status: ${statusCode} - message: ${err.message}`);
-  } else {
-    // Error server (5xx): Log sebagai error dengan stack trace untuk debugging
+  logger.warn(
+    `${req.method} ${req.originalUrl} - status: ${statusCode} - message: ${err.message}`
+  );
+  if (statusCode >= STATUS_CODES.INTERNAL_SERVER_ERROR) {
     logger.error(err.stack);
   }
 

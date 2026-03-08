@@ -1,5 +1,9 @@
 const logger = require('../config/logger.config');
 
+
+const HTTP_INTERNAL_SERVER_ERROR = 500;
+const HTTP_BAD_REQUEST = 400;
+
 /**
  * Global Handle error
  *
@@ -8,9 +12,6 @@ const logger = require('../config/logger.config');
  * @param {import('express').Response} res
  * @param {import('express').NextFunction} _next
  */
-const HTTP_INTERNAL_SERVER_ERROR = 500;
-const HTTP_BAD_REQUEST = 400;
-
 const errorHandleMiddleware = (err, req, res, _next) => {
   const statusCode = err.statusCode || err.status || HTTP_INTERNAL_SERVER_ERROR;
 

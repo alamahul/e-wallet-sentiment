@@ -62,8 +62,13 @@ const registerSchema = z.object({
     .min(MIN_PASSWORD_LENGTH, 'Password must be at least 6 characters')
 });
 
+const refreshTokenSchema = z.object({
+  refresh_token: z.string().min(1, 'Refresh token wajib diisi')
+});
+
 module.exports = {
   loginSchema,
   registerSchema,
-  forgetPasswordSchema
+  forgetPasswordSchema,
+  refreshTokenSchema
 };

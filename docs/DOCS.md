@@ -34,7 +34,7 @@ Mengecek apakah backend server berjalan dengan baik.
 **Responses**
 
 - **200**: Server berjalan normal
-  - Schema: [HealthResponse](####HealthResponse)
+  - Schema: [HealthResponse](#HealthResponse)
 
 ---
 
@@ -51,22 +51,22 @@ Login menggunakan username/email dan password. Mengembalikan access token dan re
 
 **Request Body** *(required)*
 
-Schema: [LoginRequest](####LoginRequest)
+Schema: [LoginRequest](#LoginRequest)
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| username | string | Tidak | Username (wajib salah satu username atau email) | `johndoe` |
-| email | string (email) | Tidak | Email (wajib salah satu username atau email) | `john@example.com` |
-| password | string | Ya | Password user | `password123` |
+| username | string | Tidak | Username terdaftar (alternatif dari email) | `admin` |
+| email | string (email) | Tidak | Email terdaftar (alternatif dari username) | `admin@example.com` |
+| password | string | Ya | Password user (untuk akun seed, gunakan `password`) | `password` |
 
 **Responses**
 
 - **200**: Login berhasil
-  - Schema: [LoginResponse](####LoginResponse)
+  - Schema: [LoginResponse](#LoginResponse)
 - **400**: Validasi gagal
-  - Schema: [ValidationErrorResponse](####ValidationErrorResponse)
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
 - **401**: Email/Username atau password salah
-  - Schema: [ErrorResponse](####ErrorResponse)
+  - Schema: [ErrorResponse](#ErrorResponse)
 
 ---
 
@@ -79,7 +79,7 @@ Mendaftarkan user baru dengan username, email, dan password.
 
 **Request Body** *(required)*
 
-Schema: [RegisterRequest](####RegisterRequest)
+Schema: [RegisterRequest](#RegisterRequest)
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
@@ -90,11 +90,11 @@ Schema: [RegisterRequest](####RegisterRequest)
 **Responses**
 
 - **201**: Registrasi berhasil
-  - Schema: [RegisterResponse](####RegisterResponse)
+  - Schema: [RegisterResponse](#RegisterResponse)
 - **400**: Validasi gagal
-  - Schema: [ValidationErrorResponse](####ValidationErrorResponse)
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
 - **409**: Email atau username sudah terdaftar
-  - Schema: [ErrorResponse](####ErrorResponse)
+  - Schema: [ErrorResponse](#ErrorResponse)
 
 ---
 
@@ -110,7 +110,7 @@ Selalu mengembalikan 204 No Content untuk keamanan
 
 **Request Body** *(required)*
 
-Schema: [ForgetPasswordRequest](####ForgetPasswordRequest)
+Schema: [ForgetPasswordRequest](#ForgetPasswordRequest)
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
@@ -120,7 +120,7 @@ Schema: [ForgetPasswordRequest](####ForgetPasswordRequest)
 
 - **204**: Request berhasil diproses (email dikirim jika terdaftar)
 - **400**: Validasi gagal (email tidak valid)
-  - Schema: [ErrorResponse](####ErrorResponse)
+  - Schema: [ErrorResponse](#ErrorResponse)
 
 ---
 
@@ -149,9 +149,9 @@ Mengambil daftar review dengan pagination, filter, dan sorting.
 **Responses**
 
 - **200**: Daftar review berhasil diambil
-  - Schema: [GetReviewsResponse](####GetReviewsResponse)
+  - Schema: [GetReviewsResponse](#GetReviewsResponse)
 - **400**: Validasi query parameter gagal
-  - Schema: [ValidationErrorResponse](####ValidationErrorResponse)
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
 
 ---
 
@@ -164,7 +164,7 @@ Menambahkan review baru ke database.
 
 **Request Body** *(required)*
 
-Schema: [CreateReviewRequest](####CreateReviewRequest)
+Schema: [CreateReviewRequest](#CreateReviewRequest)
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
@@ -186,9 +186,9 @@ Schema: [CreateReviewRequest](####CreateReviewRequest)
 **Responses**
 
 - **201**: Review berhasil dibuat
-  - Schema: [CreateReviewResponse](####CreateReviewResponse)
+  - Schema: [CreateReviewResponse](#CreateReviewResponse)
 - **400**: Validasi gagal
-  - Schema: [ValidationErrorResponse](####ValidationErrorResponse)
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
 
 ---
 
@@ -196,18 +196,37 @@ Schema: [CreateReviewRequest](####CreateReviewRequest)
 
 #### LoginRequest
 
+Body untuk `POST /api/auth/login`. **Password** wajib. **Username atau email** wajib salah satu (tidak boleh keduanya kosong).
+
+Validasi backend (ringkas): format email harus valid jika dikirim; pesan validasi memakai bahasa Indonesia (mis. "Username atau email wajib diisi", "Password wajib diisi").
+
+**Akun contoh setelah seed database** (`database/seeds/user.js`): semua user di bawah memakai password plaintext yang sama untuk development — hash bcrypt di seed cocok dengan `password` (bukan nilai lain).
+
+| Username   | Email                 | Role   |
+|------------|------------------------|--------|
+| `admin`    | `admin@example.com`    | ADMIN  |
+| `editor`   | `editor@example.com`   | EDITOR |
+| `viewer`   | `viewer@example.com`   | VIEWER |
+| `testuser` | `testuser@example.com` | EDITOR |
+
+Login dengan email: kirim field `email` dan `password` (mis. `admin@example.com` + `password`).
+
+
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| username | string | Tidak | Username (wajib salah satu username atau email) | `johndoe` |
-| email | string (email) | Tidak | Email (wajib salah satu username atau email) | `john@example.com` |
-| password | string | Ya | Password user | `password123` |
+| username | string | Tidak | Username terdaftar (alternatif dari email) | `admin` |
+| email | string (email) | Tidak | Email terdaftar (alternatif dari username) | `admin@example.com` |
+| password | string | Ya | Password user (untuk akun seed, gunakan `password`) | `password` |
 
 #### LoginResponse
 
+Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk otorisasi request (header `Authorization: Bearer <access_token>`), **refresh_token** untuk alur refresh sesi (endpoint terpisah jika tersedia).
+
+
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIs...` |
-| refresh_token | string | Tidak | JWT refresh token | `eyJhbGciOiJIUzI1NiIs...` |
+| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| refresh_token | string | Tidak | JWT refresh token (disimpan di server; gunakan untuk memperbarui access token) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
 
 #### RegisterRequest
 
@@ -282,7 +301,7 @@ Schema: [CreateReviewRequest](####CreateReviewRequest)
 |-------|------|----------|-------------|---------|
 | status | string | Tidak |  | `success` |
 | total_results | integer | Tidak |  | `150` |
-| data | [Review](####Review)[] | Tidak |  |  |
+| data | [Review](#Review)[] | Tidak |  |  |
 | &nbsp;&nbsp;↳ id | string | Tidak | ID unik review | `gp_abc123` |
 | &nbsp;&nbsp;↳ user_name | string, nullable | Tidak |  | `John Doe` |
 | &nbsp;&nbsp;↳ user_image | string, nullable | Tidak |  | `https://lh3.googleusercontent.com/...` |
@@ -360,4 +379,4 @@ Schema: [CreateReviewRequest](####CreateReviewRequest)
 
 ---
 
-*Generated automatically from OpenAPI spec on 2026-03-12*
+*Generated automatically from OpenAPI spec on 2026-04-04*

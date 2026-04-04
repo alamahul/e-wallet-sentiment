@@ -2,35 +2,58 @@ components:
   schemas:
     LoginRequest:
       type: object
+      description: |
+        Body untuk `POST /api/auth/login`. **Password** wajib. **Username atau email** wajib salah satu (tidak boleh keduanya kosong).
+
+        Validasi backend (ringkas): format email harus valid jika dikirim; pesan validasi memakai bahasa Indonesia (mis. "Username atau email wajib diisi", "Password wajib diisi").
+
+        **Akun contoh setelah seed database** (`database/seeds/user.js`): semua user di bawah memakai password plaintext yang sama untuk development — hash bcrypt di seed cocok dengan `password` (bukan nilai lain).
+
+        | Username   | Email                 | Role   |
+        |------------|------------------------|--------|
+        | `admin`    | `admin@example.com`    | ADMIN  |
+        | `editor`   | `editor@example.com`   | EDITOR |
+        | `viewer`   | `viewer@example.com`   | VIEWER |
+        | `testuser` | `testuser@example.com` | EDITOR |
+
+        Login dengan email: kirim field `email` dan `password` (mis. `admin@example.com` + `password`).
       required:
         - password
       properties:
         username:
           type: string
-          description: Username (wajib salah satu username atau email)
-          example: "johndoe"
+          description: Username terdaftar (alternatif dari email)
+          example: "admin"
         email:
           type: string
           format: email
-          description: Email (wajib salah satu username atau email)
-          example: "john@example.com"
+          description: Email terdaftar (alternatif dari username)
+          example: "admin@example.com"
         password:
           type: string
           minLength: 1
-          description: Password user
-          example: "password123"
+          description: Password user (untuk akun seed, gunakan `password`)
+          example: "password"
+      example:
+        username: "admin"
+        password: "password"
 
     LoginResponse:
       type: object
+      description: |
+        Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk otorisasi request (header `Authorization: Bearer <access_token>`), **refresh_token** untuk alur refresh sesi (endpoint terpisah jika tersedia).
       properties:
         access_token:
           type: string
           description: JWT access token
-          example: "eyJhbGciOiJIUzI1NiIs..."
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
         refresh_token:
           type: string
-          description: JWT refresh token
-          example: "eyJhbGciOiJIUzI1NiIs..."
+          description: JWT refresh token (disimpan di server; gunakan untuk memperbarui access token)
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+      example:
+        access_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEiLCJyb2xlIjoiQURNSU4ifQ.example"
+        refresh_token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwMDAwMDAwMC0wMDAwLTAwMDAtMDAwMC0wMDAwMDAwMDAwMDEifQ.example"
 
     RegisterRequest:
       type: object
@@ -72,3 +95,34 @@ components:
           format: email
           description: Email terdaftar untuk reset password
           example: "john@example.com"
+
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refresh_token
+      properties:
+        refresh_token:
+          type: string
+          description: JWT refresh token yang valid
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    RefreshTokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Token refreshed"
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+              description: JWT access token baru
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            refresh_token:
+              type: string
+              description: JWT refresh token baru (token lama telah di-revoke)
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."

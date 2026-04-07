@@ -13,6 +13,7 @@ API dokumentasi untuk E-Wallet Sentiment Analysis Platform. Platform ini menyedi
 - [Health](#health) — Health check endpoint
 - [Auth](#auth) — Autentikasi dan manajemen user
 - [Reviews](#reviews) — Manajemen review e-wallet
+- [Profile](#profile) — Manajemen profil user
 - [Schemas](#schemas)
 
 ---
@@ -192,6 +193,31 @@ Schema: [CreateReviewRequest](#CreateReviewRequest)
 
 ---
 
+### Profile
+
+Manajemen profil user
+
+#### `GET /api/profile/me`
+
+**Ambil profil user login**
+
+Mengambil data profil user berdasarkan access token yang valid.
+
+
+
+**Responses**
+
+- **200**: Profil berhasil diambil
+  - Schema: [GetProfileResponse](#GetProfileResponse)
+- **401**: Unauthorized (token tidak valid / tidak ada)
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **404**: User profile tidak ditemukan
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **500**: Internal server error
+  - Schema: [ErrorResponse](#ErrorResponse)
+
+---
+
 ## Schemas
 
 #### LoginRequest
@@ -247,6 +273,37 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
 | email | string (email) | Ya | Email terdaftar untuk reset password | `john@example.com` |
+
+#### ProfileData
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| id | string (uuid) | Tidak | ID user | `9dd8d0a5-f902-4cd9-8838-4f42f0f3e658` |
+| email | string (email) | Tidak | Email user | `john@example.com` |
+| username | string | Tidak | Username user | `johndoe` |
+| role | string enum: [ADMIN, EDITOR, VIEWER] | Tidak | Role user | `VIEWER` |
+| avatarUrl | string, nullable | Tidak | URL avatar user | `https://example.com/avatar.jpg` |
+| isVerified | boolean | Tidak | Status verifikasi email | `true` |
+| verifiedAt | string (date-time), nullable | Tidak | Waktu verifikasi email | `2026-04-01T09:30:00.000Z` |
+| lastLoginAt | string (date-time), nullable | Tidak | Waktu login terakhir | `2026-04-07T10:15:00.000Z` |
+| createdAt | string (date-time) | Tidak | Waktu akun dibuat | `2026-03-01T08:00:00.000Z` |
+
+#### GetProfileResponse
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| success | boolean | Tidak |  | `true` |
+| message | string | Tidak |  | `Profile fetched` |
+| data | object | Tidak |  |  |
+| &nbsp;&nbsp;↳ id | string (uuid) | Tidak | ID user | `9dd8d0a5-f902-4cd9-8838-4f42f0f3e658` |
+| &nbsp;&nbsp;↳ email | string (email) | Tidak | Email user | `john@example.com` |
+| &nbsp;&nbsp;↳ username | string | Tidak | Username user | `johndoe` |
+| &nbsp;&nbsp;↳ role | string enum: [ADMIN, EDITOR, VIEWER] | Tidak | Role user | `VIEWER` |
+| &nbsp;&nbsp;↳ avatarUrl | string, nullable | Tidak | URL avatar user | `https://example.com/avatar.jpg` |
+| &nbsp;&nbsp;↳ isVerified | boolean | Tidak | Status verifikasi email | `true` |
+| &nbsp;&nbsp;↳ verifiedAt | string (date-time), nullable | Tidak | Waktu verifikasi email | `2026-04-01T09:30:00.000Z` |
+| &nbsp;&nbsp;↳ lastLoginAt | string (date-time), nullable | Tidak | Waktu login terakhir | `2026-04-07T10:15:00.000Z` |
+| &nbsp;&nbsp;↳ createdAt | string (date-time) | Tidak | Waktu akun dibuat | `2026-03-01T08:00:00.000Z` |
 
 #### ErrorResponse
 
@@ -379,4 +436,4 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 
 ---
 
-*Generated automatically from OpenAPI spec on 2026-04-04*
+*Generated automatically from OpenAPI spec on 2026-04-07*

@@ -56,9 +56,9 @@ Schema: [LoginRequest](#LoginRequest)
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| username | string | Tidak | Username (wajib salah satu username atau email) | `johndoe` |
-| email | string (email) | Tidak | Email (wajib salah satu username atau email) | `john@example.com` |
-| password | string | Ya | Password user | `password123` |
+| username | string | Tidak | Username terdaftar (alternatif dari email) | `admin` |
+| email | string (email) | Tidak | Email terdaftar (alternatif dari username) | `admin@example.com` |
+| password | string | Ya | Password user (untuk akun seed, gunakan `password`) | `password` |
 
 **Responses**
 
@@ -222,18 +222,37 @@ Mengambil data profil user berdasarkan access token yang valid.
 
 #### LoginRequest
 
+Body untuk `POST /api/auth/login`. **Password** wajib. **Username atau email** wajib salah satu (tidak boleh keduanya kosong).
+
+Validasi backend (ringkas): format email harus valid jika dikirim; pesan validasi memakai bahasa Indonesia (mis. "Username atau email wajib diisi", "Password wajib diisi").
+
+**Akun contoh setelah seed database** (`database/seeds/user.js`): semua user di bawah memakai password plaintext yang sama untuk development — hash bcrypt di seed cocok dengan `password` (bukan nilai lain).
+
+| Username   | Email                 | Role   |
+|------------|------------------------|--------|
+| `admin`    | `admin@example.com`    | ADMIN  |
+| `editor`   | `editor@example.com`   | EDITOR |
+| `viewer`   | `viewer@example.com`   | VIEWER |
+| `testuser` | `testuser@example.com` | EDITOR |
+
+Login dengan email: kirim field `email` dan `password` (mis. `admin@example.com` + `password`).
+
+
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| username | string | Tidak | Username (wajib salah satu username atau email) | `johndoe` |
-| email | string (email) | Tidak | Email (wajib salah satu username atau email) | `john@example.com` |
-| password | string | Ya | Password user | `password123` |
+| username | string | Tidak | Username terdaftar (alternatif dari email) | `admin` |
+| email | string (email) | Tidak | Email terdaftar (alternatif dari username) | `admin@example.com` |
+| password | string | Ya | Password user (untuk akun seed, gunakan `password`) | `password` |
 
 #### LoginResponse
 
+Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk otorisasi request (header `Authorization: Bearer <access_token>`), **refresh_token** untuk alur refresh sesi (endpoint terpisah jika tersedia).
+
+
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIs...` |
-| refresh_token | string | Tidak | JWT refresh token | `eyJhbGciOiJIUzI1NiIs...` |
+| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| refresh_token | string | Tidak | JWT refresh token (disimpan di server; gunakan untuk memperbarui access token) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
 
 #### RegisterRequest
 

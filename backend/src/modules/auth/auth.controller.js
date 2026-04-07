@@ -71,8 +71,53 @@ const forgetPassword = async (req, res, next) => {
   }
 };
 
+/**
+ * Controller untuk memproses refresh token.
+ * @param {Object} req - Express request object
+ * @param {Object} res - Express response object
+ * @param {Function} next - Express next middleware
+ */
+const refreshToken = async (req, res, next) => {
+  try {
+    // 1. Validasi request body menggunakan Zod
+    const validationResult = authValidation.refreshTokenSchema.safeParse(
+      req.body
+    );
+
+    if (!validationResult.success) {
+      return next(
+        ApiError.validation('Validation failed', validationResult.error)
+      );
+    }
+
+    const { refresh_token } = validationResult.data;
+
+    // 2. Ekstrak metadata: IP Address dan Device Info (User-Agent)
+    const metadata = {
+      ipAddress: req.ip,
+      deviceInfo: req.headers['user-agent']
+    };
+
+    // 3. Panggil service untuk proses rotasi token
+    const tokens = await authService.refreshToken(refresh_token, metadata);
+
+    // 4. Return respon sesuai format yang diminta
+    return res.status(STATUS_CODES.OK).json({
+      success: true,
+      message: 'Token refreshed',
+      data: {
+        access_token: tokens.access_token,
+        refresh_token: tokens.refresh_token
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   forgetPassword,
   login,
-  register
+  register,
+  refreshToken
 };

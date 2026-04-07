@@ -149,6 +149,35 @@ const forgetPassword = async email => {
   });
 };
 
+const verifyForgetPasswordToken = async token => {
+  const tokenHash = crypto.createHash('sha256').update(token).digest('hex');
+
+  const userToken = await prisma.userToken.findFirst({
+    where: {
+      tokenHash: tokenHash,
+      type: 'PASSWORD_RESET'
+    }
+  });
+
+  if (!userToken) {
+    throw new Error('Invalid token');
+  }
+
+  if (userToken.isUsed) {
+    throw new Error('Token has already been used');
+  }
+
+  if (new Date() > new Date(userToken.expiresAt)) {
+    throw new Error('Token has expired');
+  }
+
+  return {
+    user_id: userToken.userId,
+    type: userToken.type,
+    expires_at: userToken.expiresAt
+  };
+};
+
 /**
  * Service untuk memproses refresh token.
  * Melakukan rotasi token: me-revoke token lama dan membuat sepasang token baru.
@@ -223,5 +252,6 @@ module.exports = {
   login,
   register,
   forgetPassword,
+  verifyForgetPasswordToken,
   refreshToken
 };

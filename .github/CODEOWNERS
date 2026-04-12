@@ -6,13 +6,13 @@
 * @org/devops
 
 # Frontend
-/frontend/          @org/frontend-team
+/frontend/          @org/frontend-team @M0zziee
 
 # Backend
-/backend/           @org/backend-team
+/backend/           @org/backend-team @ahmaadn
 
 # AI / Data Science
-/ai/                @org/ai-team
+/ai/                @org/ai-team @zaenalSamsul
 
 # Database
 /database/          @org/backend-team @org/devops

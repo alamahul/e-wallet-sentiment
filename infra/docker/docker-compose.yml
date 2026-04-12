@@ -1,34 +1,113 @@
-﻿version: '3.8'
-
-services:
-  frontend:
-    build: ../frontend
-    ports:
-      - '3000:3000'
-    environment:
-      - NEXT_PUBLIC_API_URL=http://backend:3001
-    depends_on:
-      - backend
-
-  backend:
-    build: ../backend
-    ports:
-      - '3001:3001'
-    environment:
-      - DATABASE_URL=postgresql://user:password@db:5432/ewallet_sentiment
-    depends_on:
-      - db
-
+﻿services:
+  # ============================================================
+  # DATABASE
+  # ============================================================
   db:
     image: postgres:16-alpine
+    container_name: ewallet_db
+    restart: unless-stopped
+    env_file:
+      - ../../.env
     ports:
-      - '5432:5432'
-    environment:
-      POSTGRES_USER: user
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ewallet_sentiment
+      - "${DB_PORT}:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    networks:
+      - ewallet_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ============================================================
+  # ELASTICSEARCH (untuk AI: storage, embedding, RAG)
+  # ============================================================
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+    container_name: ewallet_elasticsearch
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ports:
+      - "${ES_PORT:-9200}:9200"
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - ewallet_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200/_cluster/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  # ============================================================
+  # BACKEND
+  # ============================================================
+  backend:
+    container_name: ewallet_backend
+    build:
+      context: ../../
+      dockerfile: backend/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - ewallet_net
+
+  # ============================================================
+  # FRONTEND
+  # ============================================================
+  frontend:
+    container_name: ewallet_frontend
+    build:
+      context: ../../
+      dockerfile: frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT}:3000"
+    depends_on:
+      - backend
+    networks:
+      - ewallet_net
+
+  # ============================================================
+  # AI API (Sentiment Analysis)
+  # ============================================================
+  ai:
+    container_name: ewallet_ai
+    build:
+      context: ../../
+      dockerfile: ai/Dockerfile
+    restart: unless-stopped
+    env_file:
+      - ../../.env
+    environment:
+      ES_HOST: http://elasticsearch:9200
+      API_PORT: ${AI_PORT:-8000}
+    ports:
+      - "${AI_PORT:-8000}:8000"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    volumes:
+      - ../../ai/models:/app/models
+    networks:
+      - ewallet_net
 
 volumes:
   pgdata:
+  esdata:
+
+networks:
+  ewallet_net:
+    driver: bridge

@@ -1,0 +1,250 @@
+components:
+  schemas:
+    LoginRequest:
+      type: object
+      description: |
+        Body untuk `POST /api/auth/login`. **Password** wajib. **Username atau email** wajib salah satu (tidak boleh keduanya kosong).
+
+        Validasi backend (ringkas): format email harus valid jika dikirim; pesan validasi memakai bahasa Indonesia (mis. "Username atau email wajib diisi", "Password wajib diisi").
+
+        **Akun contoh setelah seed database** (`database/seeds/user.js`): semua user di bawah memakai password plaintext yang sama untuk development — hash bcrypt di seed cocok dengan `password` (bukan nilai lain).
+
+        | Username   | Email                 | Role   |
+        |------------|------------------------|--------|
+        | `admin`    | `admin@example.com`    | ADMIN  |
+        | `editor`   | `editor@example.com`   | EDITOR |
+        | `viewer`   | `viewer@example.com`   | VIEWER |
+        | `testuser` | `testuser@example.com` | EDITOR |
+
+        Login dengan email: kirim field `email` dan `password` (mis. `admin@example.com` + `password`).
+      required:
+        - password
+      properties:
+        username:
+          type: string
+          description: Username terdaftar (alternatif dari email)
+          example: "admin"
+        email:
+          type: string
+          format: email
+          description: Email terdaftar (alternatif dari username)
+          example: "admin@example.com"
+        password:
+          type: string
+          minLength: 1
+          description: Password user (untuk akun seed, gunakan `password`)
+          example: "password"
+      example:
+        username: "admin"
+        password: "password"
+
+    LoginResponse:
+      type: object
+      description: |
+        Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk otorisasi request (header `Authorization: Bearer <access_token>`), **refresh_token** untuk alur refresh sesi (endpoint terpisah jika tersedia).
+      properties:
+        access_token:
+          type: string
+          description: JWT access token
+          example: "eyJhbGciOiJIUzI1NiIs..."
+        refresh_token:
+          type: string
+          description: JWT refresh token
+          example: "eyJhbGciOiJIUzI1NiIs..."
+
+    RegisterRequest:
+      type: object
+      required:
+        - username
+        - email
+        - password
+      properties:
+        username:
+          type: string
+          minLength: 3
+          description: Username minimal 3 karakter
+          example: "johndoe"
+        email:
+          type: string
+          format: email
+          description: Email yang valid
+          example: "john@example.com"
+        password:
+          type: string
+          minLength: 6
+          description: Password minimal 6 karakter
+          example: "password123"
+
+    RegisterResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+
+    ForgetPasswordRequest:
+      type: object
+      required:
+        - email
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email terdaftar untuk reset password
+          example: "john@example.com"
+
+    ProfileData:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID user
+          example: "9dd8d0a5-f902-4cd9-8838-4f42f0f3e658"
+        email:
+          type: string
+          format: email
+          description: Email user
+          example: "john@example.com"
+        username:
+          type: string
+          description: Username user
+          example: "johndoe"
+        role:
+          type: string
+          enum:
+            - ADMIN
+            - EDITOR
+            - VIEWER
+          description: Role user
+          example: "VIEWER"
+        avatarUrl:
+          type: string
+          nullable: true
+          description: URL avatar user
+          example: "https://example.com/avatar.jpg"
+        isVerified:
+          type: boolean
+          description: Status verifikasi email
+          example: true
+        verifiedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Waktu verifikasi email
+          example: "2026-04-01T09:30:00.000Z"
+        lastLoginAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Waktu login terakhir
+          example: "2026-04-07T10:15:00.000Z"
+        createdAt:
+          type: string
+          format: date-time
+          description: Waktu akun dibuat
+          example: "2026-03-01T08:00:00.000Z"
+
+    GetProfileResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Profile fetched"
+        data:
+          $ref: "#/components/schemas/ProfileData"
+
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refresh_token
+      properties:
+        refresh_token:
+          type: string
+          description: JWT refresh token yang valid
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+
+    RefreshTokenResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Token refreshed"
+        data:
+          type: object
+          properties:
+            access_token:
+              type: string
+              description: JWT access token baru
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            refresh_token:
+              type: string
+              description: JWT refresh token baru (token lama telah di-revoke)
+              example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+            
+paths:
+  /api/auth/forget-password/verify-token:
+    post:
+      tags:
+        - Auth
+      summary: Verifikasi token forget password
+      description: Mengecek apakah token reset password valid, belum digunakan, dan belum kadaluarsa.
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - token
+              properties:
+                token:
+                  type: string
+                  description: Token raw yang didapat user dari email
+                  example: "abc123randomstring"
+      responses:
+        "200":
+          description: Token valid
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Forget password token is valid"
+                  data:
+                    type: object
+                    properties:
+                      user_id:
+                        type: string
+                        example: "00000000-0000-0000-0000-000000000001"
+                      type:
+                        type: string
+                        example: "PASSWORD_RESET"
+                      expires_at:
+                        type: string
+                        format: date-time
+                        example: "2026-04-02T10:00:00.000Z"
+        "400":
+          description: Bad Request (Input token tidak valid/kosong)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized (Token tidak valid, sudah kadaluarsa, atau sudah digunakan)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"

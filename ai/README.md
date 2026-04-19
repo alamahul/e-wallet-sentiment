@@ -355,7 +355,7 @@ docker compose --env-file ../../.env logs ai -f
 
 | Service | Container | Port | Description |
 |---------|-----------|------|-------------|
-| `db` | `ewallet_db` | `5432` | PostgreSQL 16 |
+| `db` | `ewallet_db` | `5433` | PostgreSQL 16 |
 | `elasticsearch` | `ewallet_elasticsearch` | `9200` | Elasticsearch 8.12 |
 | `backend` | `ewallet_backend` | `3001` | Node.js API |
 | `frontend` | `ewallet_frontend` | `3000` | React/Next.js |

@@ -1,16 +1,227 @@
-# React + Vite
+# 🌐 E-Wallet Sentiment Analysis - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend application for visualizing sentiment analysis of e-wallet reviews (Dana, OVO, GoPay, etc). Built with modern React + Vite architecture, designed for scalability and integration with AI & Backend services.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Table of Contents
 
-## React Compiler
+- [🌐 E-Wallet Sentiment Analysis - Frontend](#-e-wallet-sentiment-analysis---frontend)
+  - [📋 Table of Contents](#-table-of-contents)
+  - [🌐 Frontend Overview](#-frontend-overview)
+  - [🛠 Tech Stack](#-tech-stack)
+  - [🏗 Architecture](#-architecture)
+  - [📁 Project Structure](#-project-structure)
+  - [🚀 Quick Start](#-quick-start)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Run Development](#run-development)
+  - [📖 Development Guide](#-development-guide)
+    - [Start Dev Server](#start-dev-server)
+    - [Build Production](#build-production)
+    - [Preview Build](#preview-build)
+  - [🌐 Routing](#-routing)
+  - [🎨 Styling](#-styling)
+  - [🔧 Environment Variables](#-environment-variables)
+  - [🐳 Docker](#-docker)
+    - [Build All Service](#build-all-service)
+    - [Build Frontend Only](#build-frontend-only)
+  - [🤝 Contributing](#-contributing)
+  - [📌 Notes](#-notes)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🌐 Frontend Overview
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+This frontend serves as the **user interface** for:
+- 📊 Sentiment visualization (positive, negative, neutral)
+- 🔍 Insight exploration (RAG-based results)
+- 📝 User interaction with AI predictions
+- 📡 Integration with Backend & AI APIs
+
+---
+
+## 🛠 Tech Stack
+
+| Category | Technology |
+|----------|-----------|
+| Framework | React (Vite) |
+| Language | JavaScript (JSX) |
+| Routing | React Router |
+| Styling | CSS / Global CSS |
+| State Management | React Hooks |
+| HTTP Client | Fetch / Axios |
+| Build Tool | Vite |
+| Linting | ESLint |
+| Container | Docker |
+
+---
+
+## 🏗 Architecture
+
+```
+Frontend (React)
+      │
+      ▼
+Backend API (Node.js)
+      │
+      ▼
+AI Service (FastAPI - IndoBERT)
+```
+
+---
+
+## 📁 Project Structure
+
+```
+frontend/
+├── dist/                  # Build output
+├── node_modules/          # Dependencies
+├── public/                # Static assets
+├── src/
+│   ├── assets/            # Images/icons
+│   ├── components/        # Reusable UI components
+│   ├── pages/             # Page-level components
+│   ├── routes/            # Routing configuration
+│   ├── styles/
+│   │   └── global.css     # Global styles
+│   ├── utils/             # Helper functions
+│   ├── App.jsx            # Root component
+│   ├── main.jsx           # Entry point
+│   ├── App.css
+│   └── index.css
+│
+├── .env
+├── .env.example
+├── Dockerfile
+├── eslint.config.js
+├── index.html
+├── package.json
+├── pnpm-lock.yaml
+├── README.md
+└── vite.config.js
+```
+
+---
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm / npm / yarn
+- Docker (optional)
+
+### Setup
+
+```bash
+cd frontend
+pnpm install
+cp .env.example .env
+```
+
+### Run Development
+
+```bash
+pnpm dev
+```
+
+App will run on:
+```
+http://localhost:3000
+```
+
+---
+
+## 📖 Development Guide
+
+### Start Dev Server
+```bash
+pnpm dev
+```
+
+### Build Production
+```bash
+pnpm build
+```
+
+### Preview Build
+```bash
+pnpm preview
+```
+
+---
+
+## 🌐 Routing
+
+Routing is handled inside:
+
+```
+src/routes/
+```
+
+Example:
+- `/` → Home Page
+- `/dashboard` → Sentiment Dashboard
+- `/insight` → AI Insight Page
+
+---
+
+## 🎨 Styling
+
+Global styling:
+```
+src/styles/global.css
+```
+
+Component-level styling:
+```
+ComponentName.css
+```
+
+---
+
+## 🔧 Environment Variables
+
+Copy:
+```bash
+cp .env.example .env
+```
+
+Example:
+
+| Variable | Description |
+|----------|-------------|
+| VITE_API_URL | Backend API URL |
+| VITE_AI_URL | AI Service URL |
+
+---
+
+## 🐳 Docker
+
+### Build All Service
+
+```bash
+docker compose --env-file ../../.env up -d --build
+```
+
+### Build Frontend Only
+
+```bash
+docker compose --env-file ../../.env up -d --build --no-deps frontend
+```
+
+## 🤝 Contributing
+
+1. Create branch from `dev`
+2. Develop feature inside `src/`
+3. Run lint before commit
+4. Create Pull Request
+
+---
+
+## 📌 Notes
+
+- Ensure backend & AI service are running
+- Update `.env` before running app
+- Follow consistent component structure

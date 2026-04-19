@@ -17,8 +17,11 @@ COPY frontend ./frontend
 # Install dependencies untuk workspace
 RUN pnpm install --frozen-lockfile
 
-# Build aplikasi Vite (menghasilkan folder /app/frontend/dist)
-RUN pnpm --filter e-wallet-sentiment-frontend run build
+# Masuk ke direktori frontend
+WORKDIR /app/frontend
+
+# Jalankan build (menghasilkan folder dist)
+RUN pnpm run build
 
 # ==========================================
 # TAHAP 2: RUNNER (Pelayan)

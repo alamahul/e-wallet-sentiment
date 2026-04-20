@@ -8,7 +8,7 @@ const Typography = ({
   align = "left",
   color = "default" 
 }) => {
-  const Tag = variant === "h1" ? "h1" : variant === "h2" ? "h2" : "p";
+  const Tag = ["h1", "h2", "h3", "h4"].includes(variant) ? variant : "p";
   
   const classes = [
     `typography-${variant}`,

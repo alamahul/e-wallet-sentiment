@@ -34,10 +34,16 @@
 .button--primary {
   background-color: var(--color-primary);
   color: var(--color-white);
+  border: none;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: 8px;
 }
 
-.button--primary:hover:not(:disabled) {
-  background-color: var(--color-primary-600);
+.button--primary:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(146, 10, 245, 0.2);
 }
 
 .button--primary:focus-visible:not(:disabled) {

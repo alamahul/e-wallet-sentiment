@@ -1,0 +1,28 @@
+.card-primitive {
+  background-color: var(--color-white);
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+/* Padding Variants based on Technical Doc (12px 24px) */
+.padding-md {
+  padding: 12px 24px;
+}
+
+.padding-lg {
+  padding: var(--gap-lg);
+}
+
+/* Radius Variants */
+.radius-sm {
+  border-radius: var(--radius-sm);
+}
+
+.radius-lg {
+  border-radius: var(--radius-lg);
+}
+
+/* Border */
+.border-active {
+  border: 1px solid var(--color-neutral-300);
+}

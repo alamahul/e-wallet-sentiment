@@ -13,12 +13,18 @@ import Settings from "../pages/private/Settings";
 import ProtectedRoute from "./ProtectedRoute";
 import DashboardLayout from "../pages/private/DashboardLayout";
 
+import ErrorPage from "../pages/error/ErrorPage";
+
 const AppRoutes = () => {
   return (
     <Routes>
       {/* Testing Component */}
       <Route path="/button" element={<ButtonTest />} />
       <Route path="/input" element={<InputTest />} />
+      <Route path="/401" element={<ErrorPage code="401" />} />
+      <Route path="/403" element={<ErrorPage code="403" />} />
+      <Route path="/500" element={<ErrorPage code="500" />} />
+      <Route path="/503" element={<ErrorPage code="503" />} />
 
       {/* Public Routes */}
       <Route path="/" element={<Landing />} />
@@ -42,7 +48,7 @@ const AppRoutes = () => {
         <Route path="settings" element={<Settings />} />
       </Route>
 
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 };

@@ -2,7 +2,7 @@
 <!-- Jelaskan perubahan yang dilakukan -->
 
 ## Related Issue
-<!-- Link ke issue terkait: closes #xxx -->
+<!-- Link ke issue terkait: closes #xxx (ini maksudnya link trello biar gampang meriksa + update trello)-->
 
 ## Type of Change
 - [ ] New feature

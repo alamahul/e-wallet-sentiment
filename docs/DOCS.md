@@ -125,6 +125,55 @@ Schema: [ForgetPasswordRequest](#ForgetPasswordRequest)
 
 ---
 
+#### `POST /api/auth/refresh-token`
+
+**Refresh access token**
+
+Menggunakan refresh token untuk mendapatkan access token baru. Mengimplementasikan token rotation.
+
+
+**Request Body** *(required)*
+
+Schema: [RefreshTokenRequest](#RefreshTokenRequest)
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| refresh_token | string | Ya | JWT refresh token yang valid | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+
+**Responses**
+
+- **200**: Token berhasil diperbarui
+  - Schema: [RefreshTokenResponse](#RefreshTokenResponse)
+- **400**: Validasi gagal
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
+- **401**: Refresh token tidak valid atau expired
+  - Schema: [ErrorResponse](#ErrorResponse)
+
+---
+
+#### `POST /api/auth/forget-password/verify-token`
+
+**Verifikasi token forget password**
+
+Mengecek apakah token reset password valid, belum digunakan, dan belum kadaluarsa.
+
+
+**Request Body** *(required)*
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| token | string | Ya | Token raw yang didapat user dari email | `abc123randomstring` |
+
+**Responses**
+
+- **200**: Token valid
+- **400**: Bad Request (Input token tidak valid/kosong)
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **401**: Unauthorized (Token tidak valid, sudah kadaluarsa, atau sudah digunakan)
+  - Schema: [ErrorResponse](#ErrorResponse)
+
+---
+
 ### Reviews
 
 Manajemen review e-wallet
@@ -218,6 +267,39 @@ Mengambil data profil user berdasarkan access token yang valid.
 
 ---
 
+#### `PATCH /api/profile/me`
+
+**Update profil user login**
+
+Update field profil user login (hanya username dan/atau email).
+
+
+**Request Body** *(required)*
+
+Schema: [UpdateProfileRequest](#UpdateProfileRequest)
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| username | string | Tidak | Username baru user | `admin_baru` |
+| email | string (email) | Tidak | Email baru user | `admin.baru@example.com` |
+
+**Responses**
+
+- **200**: Profil berhasil diupdate
+  - Schema: [UpdateProfileResponse](#UpdateProfileResponse)
+- **400**: Validasi gagal
+  - Schema: [ValidationErrorResponse](#ValidationErrorResponse)
+- **401**: Unauthorized (token tidak valid / tidak ada)
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **404**: User profile tidak ditemukan
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **409**: Username atau email sudah digunakan
+  - Schema: [ErrorResponse](#ErrorResponse)
+- **500**: Internal server error
+  - Schema: [ErrorResponse](#ErrorResponse)
+
+---
+
 ## Schemas
 
 #### LoginRequest
@@ -251,8 +333,8 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
-| refresh_token | string | Tidak | JWT refresh token (disimpan di server; gunakan untuk memperbarui access token) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| access_token | string | Tidak | JWT access token | `eyJhbGciOiJIUzI1NiIs...` |
+| refresh_token | string | Tidak | JWT refresh token | `eyJhbGciOiJIUzI1NiIs...` |
 
 #### RegisterRequest
 
@@ -273,6 +355,46 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
 | email | string (email) | Ya | Email terdaftar untuk reset password | `john@example.com` |
+
+#### RefreshTokenRequest
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| refresh_token | string | Ya | JWT refresh token yang valid | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+
+#### RefreshTokenResponse
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| success | boolean | Tidak |  | `true` |
+| message | string | Tidak |  | `Token refreshed` |
+| data | object | Tidak |  |  |
+| &nbsp;&nbsp;↳ access_token | string | Tidak | JWT access token baru | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+| &nbsp;&nbsp;↳ refresh_token | string | Tidak | JWT refresh token baru (token lama telah di-revoke) | `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...` |
+
+#### ErrorResponse
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| success | boolean | Tidak |  | `false` |
+| message | string | Tidak |  | `Internal Server Error` |
+| errors | object | Tidak | Detail error validasi (opsional) |  |
+| stack | string | Tidak | Stack trace (hanya muncul di mode development) |  |
+
+#### ValidationErrorResponse
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| success | boolean | Tidak |  | `false` |
+| message | string | Tidak |  | `Validation failed` |
+| errors | object | Tidak | Detail error per field |  |
+
+#### HealthResponse
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| status | string | Tidak |  | `ok` |
+| service | string | Tidak |  | `e-wallet-sentiment-backend` |
 
 #### ProfileData
 
@@ -305,29 +427,39 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 | &nbsp;&nbsp;↳ lastLoginAt | string (date-time), nullable | Tidak | Waktu login terakhir | `2026-04-07T10:15:00.000Z` |
 | &nbsp;&nbsp;↳ createdAt | string (date-time) | Tidak | Waktu akun dibuat | `2026-03-01T08:00:00.000Z` |
 
-#### ErrorResponse
+#### UpdateProfileRequest
+
+Body untuk `PATCH /api/profile/me`. Minimal kirim satu field yang ingin diubah.
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| success | boolean | Tidak |  | `false` |
-| message | string | Tidak |  | `Internal Server Error` |
-| errors | object | Tidak | Detail error validasi (opsional) |  |
-| stack | string | Tidak | Stack trace (hanya muncul di mode development) |  |
+| username | string | Tidak | Username baru user | `admin_baru` |
+| email | string (email) | Tidak | Email baru user | `admin.baru@example.com` |
 
-#### ValidationErrorResponse
+#### ProfileUpdateData
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| success | boolean | Tidak |  | `false` |
-| message | string | Tidak |  | `Validation failed` |
-| errors | object | Tidak | Detail error per field |  |
+| id | string (uuid) | Tidak | ID user | `00000000-0000-0000-0000-000000000001` |
+| email | string (email) | Tidak | Email user setelah update | `admin.baru@example.com` |
+| username | string | Tidak | Username user setelah update | `admin_baru` |
+| role | string enum: [ADMIN, EDITOR, VIEWER] | Tidak | Role user (read-only) | `ADMIN` |
+| avatarUrl | string, nullable | Tidak | URL avatar user | `https://example.com/avatar.jpg` |
+| updatedAt | string (date-time) | Tidak | Waktu profile terakhir diupdate | `2026-04-02T10:00:00.000Z` |
 
-#### HealthResponse
+#### UpdateProfileResponse
 
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
-| status | string | Tidak |  | `ok` |
-| service | string | Tidak |  | `e-wallet-sentiment-backend` |
+| success | boolean | Tidak |  | `true` |
+| message | string | Tidak |  | `Profile updated` |
+| data | object | Tidak |  |  |
+| &nbsp;&nbsp;↳ id | string (uuid) | Tidak | ID user | `00000000-0000-0000-0000-000000000001` |
+| &nbsp;&nbsp;↳ email | string (email) | Tidak | Email user setelah update | `admin.baru@example.com` |
+| &nbsp;&nbsp;↳ username | string | Tidak | Username user setelah update | `admin_baru` |
+| &nbsp;&nbsp;↳ role | string enum: [ADMIN, EDITOR, VIEWER] | Tidak | Role user (read-only) | `ADMIN` |
+| &nbsp;&nbsp;↳ avatarUrl | string, nullable | Tidak | URL avatar user | `https://example.com/avatar.jpg` |
+| &nbsp;&nbsp;↳ updatedAt | string (date-time) | Tidak | Waktu profile terakhir diupdate | `2026-04-02T10:00:00.000Z` |
 
 #### Review
 
@@ -436,4 +568,4 @@ Respons sukses `200` dari login. Berisi pasangan JWT: **access_token** untuk oto
 
 ---
 
-*Generated automatically from OpenAPI spec on 2026-04-07*
+*Generated automatically from OpenAPI spec on 2026-04-16*

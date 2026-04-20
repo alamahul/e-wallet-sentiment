@@ -1,5 +1,10 @@
 .state-placeholder {
-  min-height: 100vh;
+  position: fixed; /* Memaksa keluar dari semua container ke level viewport */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -9,10 +14,7 @@
   background-color: var(--color-white);
   text-align: center;
   margin: 0;
-  position: absolute; /* Memaksa keluar dari container yang membatasi */
-  top: 0;
-  left: 0;
-  z-index: 10;
+  z-index: 9999; /* Sangat tinggi agar tidak tertutup elemen lain */
 }
 
 .state-visual {

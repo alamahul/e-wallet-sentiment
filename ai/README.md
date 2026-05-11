@@ -40,20 +40,20 @@ Modul AI untuk analisis sentimen ulasan e-wallet (Dana, OVO, GoPay, dll) dari Go
 
 ## 🛠 Tech Stack
 
-| Category | Technology |
-|----------|-----------|
-| Language | Python 3.11 |
-| ML Framework | PyTorch, Hugging Face Transformers |
-| Base Model | [IndoBERT](https://huggingface.co/indobenchmark/indobert-base-p1) (fine-tuned) |
-| NLP | NLTK, Sastrawi (Indonesian stemmer) |
-| Embeddings | Sentence-Transformers |
-| Vector Store & Search | Elasticsearch 8.12 |
-| RAG | LangChain + Elasticsearch |
-| API | FastAPI + Uvicorn |
-| Scraping | google-play-scraper |
-| Container | Docker |
-| CI/CD | GitHub Actions |
-| Deployment | Hugging Face Spaces |
+| Category              | Technology                                                                     |
+| --------------------- | ------------------------------------------------------------------------------ |
+| Language              | Python 3.11                                                                    |
+| ML Framework          | PyTorch, Hugging Face Transformers                                             |
+| Base Model            | [IndoBERT](https://huggingface.co/indobenchmark/indobert-base-p1) (fine-tuned) |
+| NLP                   | NLTK, Sastrawi (Indonesian stemmer)                                            |
+| Embeddings            | Sentence-Transformers                                                          |
+| Vector Store & Search | Elasticsearch 8.12                                                             |
+| RAG                   | LangChain + Elasticsearch                                                      |
+| API                   | FastAPI + Uvicorn                                                              |
+| Scraping              | google-play-scraper                                                            |
+| Container             | Docker                                                                         |
+| CI/CD                 | GitHub Actions                                                                 |
+| Deployment            | Hugging Face Spaces                                                            |
 
 ---
 
@@ -76,17 +76,17 @@ Modul AI untuk analisis sentimen ulasan e-wallet (Dana, OVO, GoPay, dll) dari Go
                     └─────────────┘     └──────────────┘     └─────────────┘
 ```
 
-| Step | Module | Description |
-|------|--------|-------------|
-| 1 | `pipeline/scraper/` | Scrape ulasan e-wallet dari Google Play Store (Dana, OVO, GoPay, dll) |
-| 2 | `pipeline/storage/` | Simpan data mentah ke Elasticsearch untuk indexing dan retrieval |
-| 3 | `pipeline/preprocessing/` | Text cleaning, normalisasi slang Indonesia, tokenisasi, labeling |
-| 4 | `pipeline/training/` | Fine-tune IndoBERT untuk klasifikasi sentimen (positif/negatif/netral) |
-| 5 | `pipeline/embedding/` | Generate vector embeddings dan index ke Elasticsearch |
-| 6 | `pipeline/rag/` | Retrieval-Augmented Generation untuk insight berbasis konteks |
-| 7 | `pipeline/evaluation/` | Hitung accuracy, F1-score, precision, recall, confusion matrix |
-| 8 | `pipeline/validation/` | Quality gate: pastikan model memenuhi minimum accuracy sebelum deploy |
-| 9 | `pipeline/prediction/` | Inference endpoint untuk prediksi sentimen real-time |
+| Step | Module                    | Description                                                            |
+| ---- | ------------------------- | ---------------------------------------------------------------------- |
+| 1    | `pipeline/scraper/`       | Scrape ulasan e-wallet dari Google Play Store (Dana, OVO, GoPay, dll)  |
+| 2    | `pipeline/storage/`       | Simpan data mentah ke Elasticsearch untuk indexing dan retrieval       |
+| 3    | `pipeline/preprocessing/` | Text cleaning, normalisasi slang Indonesia, tokenisasi, labeling       |
+| 4    | `pipeline/training/`      | Fine-tune IndoBERT untuk klasifikasi sentimen (positif/negatif/netral) |
+| 5    | `pipeline/embedding/`     | Generate vector embeddings dan index ke Elasticsearch                  |
+| 6    | `pipeline/rag/`           | Retrieval-Augmented Generation untuk insight berbasis konteks          |
+| 7    | `pipeline/evaluation/`    | Hitung accuracy, F1-score, precision, recall, confusion matrix         |
+| 8    | `pipeline/validation/`    | Quality gate: pastikan model memenuhi minimum accuracy sebelum deploy  |
+| 9    | `pipeline/prediction/`    | Inference endpoint untuk prediksi sentimen real-time                   |
 
 ---
 
@@ -241,22 +241,22 @@ make serve
 
 ## ⚡ Make Commands
 
-| Command | Description |
-|---------|-------------|
-| `make install` | Install production dependencies |
-| `make dev` | Install production + dev dependencies |
-| `make scrape` | Scrape Google Play reviews (default: Dana) |
-| `make preprocess` | Run text cleaning & tokenization |
-| `make train` | Train model (experiment mode) |
-| `make train-prod` | Train model (production mode, 10 epochs) |
-| `make embed` | Generate & index vector embeddings |
-| `make evaluate` | Compute evaluation metrics |
-| `make validate` | Validate model against minimum accuracy (0.85) |
-| `make serve` | Start FastAPI server with hot-reload |
-| `make pipeline` | Run full pipeline end-to-end |
-| `make test` | Run all tests |
-| `make lint` | Run linter (ruff) |
-| `make clean` | Remove generated artifacts |
+| Command           | Description                                    |
+| ----------------- | ---------------------------------------------- |
+| `make install`    | Install production dependencies                |
+| `make dev`        | Install production + dev dependencies          |
+| `make scrape`     | Scrape Google Play reviews (default: Dana)     |
+| `make preprocess` | Run text cleaning & tokenization               |
+| `make train`      | Train model (experiment mode)                  |
+| `make train-prod` | Train model (production mode, 10 epochs)       |
+| `make embed`      | Generate & index vector embeddings             |
+| `make evaluate`   | Compute evaluation metrics                     |
+| `make validate`   | Validate model against minimum accuracy (0.85) |
+| `make serve`      | Start FastAPI server with hot-reload           |
+| `make pipeline`   | Run full pipeline end-to-end                   |
+| `make test`       | Run all tests                                  |
+| `make lint`       | Run linter (ruff)                              |
+| `make clean`      | Remove generated artifacts                     |
 
 ---
 
@@ -264,14 +264,14 @@ make serve
 
 Base URL: `http://localhost:8000`
 
-| Method | Endpoint | Description | Request Body |
-|--------|----------|-------------|--------------|
-| `GET` | `/health` | Health check | - |
-| `POST` | `/predict` | Predict sentiment of text | `{"text": "aplikasi dana bagus"}` |
-| `POST` | `/predict/batch` | Batch prediction | `{"texts": ["bagus", "jelek"]}` |
-| `POST` | `/rag/query` | RAG insight query | `{"query": "kenapa user beri rating 1?"}` |
-| `POST` | `/scrape/trigger` | Trigger scraping job | `{"app_id": "com.empatlavang.dana", "count": 5000}` |
-| `GET` | `/docs` | Swagger UI documentation | - |
+| Method | Endpoint          | Description               | Request Body                                        |
+| ------ | ----------------- | ------------------------- | --------------------------------------------------- |
+| `GET`  | `/health`         | Health check              | -                                                   |
+| `POST` | `/predict`        | Predict sentiment of text | `{"text": "aplikasi dana bagus"}`                   |
+| `POST` | `/predict/batch`  | Batch prediction          | `{"texts": ["bagus", "jelek"]}`                     |
+| `POST` | `/rag/query`      | RAG insight query         | `{"query": "kenapa user beri rating 1?"}`           |
+| `POST` | `/scrape/trigger` | Trigger scraping job      | `{"app_id": "com.empatlavang.dana", "count": 5000}` |
+| `GET`  | `/docs`           | Swagger UI documentation  | -                                                   |
 
 ### Example Request
 
@@ -307,22 +307,22 @@ Copy `.env.example` to `.env` and configure:
 cp .env.example .env
 ```
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ES_HOST` | `http://localhost:9200` | Elasticsearch host URL |
-| `ES_INDEX_REVIEWS` | `ewallet_reviews` | ES index for raw reviews |
-| `ES_INDEX_EMBEDDINGS` | `ewallet_embeddings` | ES index for vector embeddings |
-| `MODEL_NAME` | `indobenchmark/indobert-base-p1` | Hugging Face model name |
-| `MODEL_OUTPUT_DIR` | `./models` | Directory to save trained models |
-| `MAX_LENGTH` | `256` | Max token length for tokenizer |
-| `BATCH_SIZE` | `16` | Training batch size |
-| `EPOCHS` | `5` | Number of training epochs |
-| `LEARNING_RATE` | `2e-5` | Learning rate |
-| `API_HOST` | `0.0.0.0` | API server host |
-| `API_PORT` | `8000` | API server port |
-| `SCRAPER_DEFAULT_COUNT` | `10000` | Default number of reviews to scrape |
-| `HF_TOKEN` | - | Hugging Face API token (for deployment) |
-| `HF_SPACE_ID` | - | Hugging Face Space ID |
+| Variable                | Default                          | Description                             |
+| ----------------------- | -------------------------------- | --------------------------------------- |
+| `ES_HOST`               | `http://localhost:9200`          | Elasticsearch host URL                  |
+| `ES_INDEX_REVIEWS`      | `ewallet_reviews`                | ES index for raw reviews                |
+| `ES_INDEX_EMBEDDINGS`   | `ewallet_embeddings`             | ES index for vector embeddings          |
+| `MODEL_NAME`            | `indobenchmark/indobert-base-p1` | Hugging Face model name                 |
+| `MODEL_OUTPUT_DIR`      | `./models`                       | Directory to save trained models        |
+| `MAX_LENGTH`            | `256`                            | Max token length for tokenizer          |
+| `BATCH_SIZE`            | `16`                             | Training batch size                     |
+| `EPOCHS`                | `5`                              | Number of training epochs               |
+| `LEARNING_RATE`         | `2e-5`                           | Learning rate                           |
+| `API_HOST`              | `0.0.0.0`                        | API server host                         |
+| `API_PORT`              | `8000`                           | API server port                         |
+| `SCRAPER_DEFAULT_COUNT` | `10000`                          | Default number of reviews to scrape     |
+| `HF_TOKEN`              | -                                | Hugging Face API token (for deployment) |
+| `HF_SPACE_ID`           | -                                | Hugging Face Space ID                   |
 
 ---
 
@@ -353,13 +353,11 @@ docker compose --env-file ../../.env logs ai -f
 
 ### Services Overview
 
-| Service | Container | Port | Description |
-|---------|-----------|------|-------------|
 | `db` | `ewallet_db` | `5433` | PostgreSQL 16 |
 | `elasticsearch` | `ewallet_elasticsearch` | `9200` | Elasticsearch 8.12 |
-| `backend` | `ewallet_backend` | `3001` | Node.js API |
-| `frontend` | `ewallet_frontend` | `3000` | React/Next.js |
-| `ai` | `ewallet_ai` | `8000` | FastAPI ML Service |
+| `backend`       | `ewallet_backend`       | `3001` | Node.js API        |
+| `frontend`      | `ewallet_frontend`      | `3000` | React/Next.js      |
+| `ai`            | `ewallet_ai`            | `8000` | FastAPI ML Service |
 
 ---
 
@@ -391,24 +389,27 @@ dev ──────────▶ main ──────────▶ pro
 ```
 
 ### Branch: `dev`
+
 - **Trigger**: Push/PR to `dev`
 - **Actions**: Lint, test, train (3 epochs), metrics comment on PR
 
 ### Branch: `main`
+
 - **Trigger**: Merge from `dev`
 - **Actions**: Full training (10 epochs), evaluate, validate, build Docker image, push to GHCR
 
 ### Branch: `prod`
+
 - **Trigger**: Merge from `main`
 - **Actions**: Deploy to Hugging Face Spaces (requires manual approval)
 
 ### Workflow Files
 
-| File | Branch | Purpose |
-|------|--------|---------|
-| `.github/workflows/ci-ai.yml` | `dev`, `main` | CI: Lint, test, experiment |
-| `.github/workflows/cd-ai-staging.yml` | `main` | Staging: Full train, Docker build |
-| `.github/workflows/cd-ai-deploy.yml` | `prod` | Production: Deploy to HF Spaces |
+| File                                  | Branch        | Purpose                           |
+| ------------------------------------- | ------------- | --------------------------------- |
+| `.github/workflows/ci-ai.yml`         | `dev`, `main` | CI: Lint, test, experiment        |
+| `.github/workflows/cd-ai-staging.yml` | `main`        | Staging: Full train, Docker build |
+| `.github/workflows/cd-ai-deploy.yml`  | `prod`        | Production: Deploy to HF Spaces   |
 
 ---
 

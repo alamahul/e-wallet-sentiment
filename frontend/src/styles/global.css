@@ -1,20 +1,39 @@
-/* ====================================
-   DESIGN SYSTEM - COLOR TOKENS
-   ==================================== */
 :root {
   --color-primary: #920af5;
   --color-primary-100: #ba89ff;
   --color-primary-600: #7e07d5;
-  --color-cosmic-heart-600: #7e07d5;
-  --color-neutral-100: #e0e1e4;
-  --color-neutral-300: #a3a8b1;
-  --color-neutral-600: #4e535d;
+  --color-secondary: #0ad3f5;
+  --color-success: #21A548;
+  --color-info: #3b82f6;
+  --color-warning: #ffb800;
   --color-error: #ff6528;
+  --color-neutral-50: #f9fafb;
+  --color-neutral-100: #f3f4f6;
+  --color-neutral-200: #e5e7eb;
+  --color-neutral-300: #d1d5db;
+  --color-neutral-400: #9ca3af;
+  --color-neutral-700: #32363D;
+  --color-neutral-900: #111827;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  --gap-xs: 6px;
+  --gap-sm: 12px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --font-family: 'Merriweather Sans', -apple-system, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 24px;
 }
 
-/* ====================================
-   GLOBAL STYLES
-   ==================================== */
 * {
   margin: 0;
   padding: 0;
@@ -22,11 +41,33 @@
 }
 
 body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  background-color: var(--color-white);
+  color: var(--color-neutral-900);
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
   justify-content: center;
-  /* Font harusnya Merriweather Sans*/
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #ffffff;
-  color: var(--color-gray-900);
+  align-items: center;
+}
+
+.public-layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: var(--gap-lg);
 }
